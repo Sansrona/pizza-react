@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Route} from 'react-router-dom';
+import axios from 'axios';
+import {connect} from 'react-redux'
 
-function App() {
+import store from './redux/store';
+import { Header} from './components';
+import { Home,Cart} from './pages';
+import {setPizzas as setPizzasAction} from './redux/actions/pizzas';
+
+
+function App({pizzas,setPizzas}) {
+  
+
+  React.useEffect(()=>{
+    axios.get('http://localhost:3001/pizzas').then(response=>
+      setPizzas(response.data));
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <Header />
+      <div className="content">
+        <Route exact path="/" render={()=><Home pizzas={pizzas}/>}/>
+        <Route exact path="/cart" component={Cart}/>
+      </div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state=>({
+  pizzas:state.pizzas.items
+})
+
+const mapDispatchToProps = dispatch => ({
+  setPizzas:(items)=>dispatch(setPizzasAction(items))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
