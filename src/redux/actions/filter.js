@@ -1,9 +1,9 @@
-const setSortBy = (sortBy) => {
-    type:'SET_SORT_BY',
-    sortBy
-}
+    export const setSortBy = (sortBy) =>( {
+        type:'SET_SORT_BY',
+        sortBy
+    })
 
-const setCategory = (catIndex) => {
+export const setCategory = (catIndex) => ({
     type:'SET_CATEGORY',
     catIndex
-}
+})

@@ -1,6 +1,6 @@
 const initialState={
-    sortBy:'popular', 
-    category:0
+    sortBy:'rating', 
+    category:null
 }
 
 
@@ -12,7 +12,7 @@ const filter =(state = initialState, action) => {
             }
         case 'SET_CATEGORY':
             return {...state,
-                sortBy: action.catIndex
+                category: action.catIndex
             }
         default: return state;
     }

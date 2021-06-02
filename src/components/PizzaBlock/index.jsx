@@ -1,8 +1,11 @@
 import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import Button from '../Button';
 
-function Pizza({ name, imageUrl, sizes, types, price }) {
+
+
+function Pizza({ id, name, imageUrl, sizes, types, price, addPizzaToCart, pizzaAmount }) {
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = [26, 30, 40];
 
@@ -16,9 +19,20 @@ function Pizza({ name, imageUrl, sizes, types, price }) {
   const onSelectSize = (index) => {
     setActiveSize(index);
   }
+
+  const addPizzaToBasket = () => {
+    const obj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size:activeSize,
+      type:availableTypes[activeType]
+    }
+    addPizzaToCart(price,obj)
+  }
   return (
     <>
-
       <div className="pizza-block">
         <img
           className="pizza-block__image"
@@ -39,7 +53,7 @@ function Pizza({ name, imageUrl, sizes, types, price }) {
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
-          <div className="button button--outline button--add">
+          <Button className="button--add" outline onClick={addPizzaToBasket}>
             <svg
               width="12"
               height="12"
@@ -53,10 +67,11 @@ function Pizza({ name, imageUrl, sizes, types, price }) {
               />
             </svg>
             <span>Добавить</span>
-            <i>2</i>
-          </div>
+            {pizzaAmount && <i>{pizzaAmount}</i>}
+          </Button>
         </div>
       </div>
+
     </>
   )
 }
@@ -70,8 +85,9 @@ Pizza.propTypes = {
 }
 
 Pizza.defaultTypes = {
-  types:[],
-  sizes:[]
+  types: [],
+  sizes: []
 }
 
 export default Pizza
+
