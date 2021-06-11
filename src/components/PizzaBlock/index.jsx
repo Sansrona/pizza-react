@@ -29,7 +29,7 @@ function Pizza({ id, name, imageUrl, sizes, types, price, addPizzaToCart, pizzaA
       size:activeSize,
       type:availableTypes[activeType]
     }
-    addPizzaToCart(price,obj)
+    addPizzaToCart(obj)
   }
   return (
     <>

@@ -26,8 +26,8 @@ function Home() {
     dispatch(setSortBy(sortByType));
   }
 
-  const addPizza = (price,obj) => {
-    dispatch(addPizzaToCart(price,obj));
+  const addPizza = (obj) => {    
+    dispatch(addPizzaToCart(obj));
   }
 
   React.useEffect(() => {
@@ -42,7 +42,7 @@ function Home() {
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
           {isLoaded && pizzas ? (pizzas.map(pizza=>(
-             <Pizzas key={pizza.id} {...pizza} addPizzaToCart={addPizza} pizzaAmount = {cartItems[pizza.id] && cartItems[pizza.id].length} />
+             <Pizzas key={pizza.id} {...pizza} addPizzaToCart={addPizza} pizzaAmount = {cartItems[pizza.id] && cartItems[pizza.id].items.length} />
           ))):
             (Array(10).fill(0).map((_,index)=>(<PizzaLoadingBlock key={index} />)))
           }

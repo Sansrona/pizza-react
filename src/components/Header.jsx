@@ -8,8 +8,7 @@ import logoSvg from '../assets/img/pizza-logo.svg';
 import Button from './Button';
 
  const Header = () => {
-   const {totalCount,totalPrice} = useSelector(({cart})=>({totalCount: cart.totalCount, totalPrice: cart.totalPrice}))
-  console.log(totalPrice);
+   const {totalCount,totalPrice} = useSelector(({cart})=>cart)
    return (
         <div className="header">
         <div className="container">
